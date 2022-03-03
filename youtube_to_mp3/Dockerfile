@@ -8,10 +8,10 @@ USER ${USER}
 WORKDIR /home/${USER}
 # //////////////////////////////////////////////////////
 
+RUN mkdir mp3
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-
-RUN pip install moviepy
 
 COPY . .
 ENTRYPOINT [ "python", "-u", "main.py" ]

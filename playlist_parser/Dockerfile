@@ -8,6 +8,8 @@ USER ${USER}
 WORKDIR /home/${USER}
 # //////////////////////////////////////////////////////
 
+RUN mkdir playlist
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
