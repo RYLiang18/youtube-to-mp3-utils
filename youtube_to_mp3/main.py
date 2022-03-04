@@ -14,9 +14,9 @@ def get_mp3_filename(file, track_number=-1):
     if track_number == -1:
         return base + '.mp3'
     else:
-        # 01234567890123456
-        # /home/appuser/mp3
-        new_base = base[0:17] + f"{track_number}" + base[17:len(base)]
+        # 012345678901234567
+        # /home/appuser/mp3/
+        new_base = base[0:18] + f"{track_number} " + base[18:len(base)]
         return new_base + '.mp3'
 
 class Youtube_Video:
