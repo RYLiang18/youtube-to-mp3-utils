@@ -61,8 +61,8 @@ if wants_playlist == 'Y':
                 video_mp4,
                 get_mp3_filename(video_mp4)
             )
-
-
+        # delete the original mp4
+        os.remove(f"/home/appuser/mp3/{video_mp4}")
 
 elif wants_playlist == 'n':
     youtube_url = input("Enter youtube URL: ")
@@ -72,6 +72,9 @@ elif wants_playlist == 'n':
         video_mp4,
         get_mp3_filename(video_mp4)
     )
+
+    # delete the original mp4
+    os.remove(f"/home/appuser/mp3/{video_mp4}")
 
 # ///// deprecated ////////////////////////////////////////////////
 
