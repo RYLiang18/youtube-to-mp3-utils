@@ -8,7 +8,7 @@ def mp4_to_mp3(mp4, mp3):
     mp4_without_frames.write_audiofile(mp3)
     mp4_without_frames.close()
 
-def get_new_filename(file, track_number=-1):
+def get_mp3_filename(file, track_number=-1):
     base, ext = os.path.splitext(file)
     
     if track_number == -1:
@@ -29,6 +29,49 @@ class Youtube_Video:
         audio = yt.streams.filter(only_audio=True).first()
         out_file = audio.download(output_path="/home/appuser/mp3")
         return out_file
+
+
+# main
+wants_playlist = input("Do you want to convert a playlist? (Y/n) ")
+
+if wants_playlist == 'Y':
+    playlist_url = input("Enter youtube playlist URL: ")
+    playlist = Playlist(playlist_url)
+
+    want_track_number = input("Do you want to add a track number to the beginning of the file? (y/N) ")
+    
+    for i, youtube_url in enumerate(playlist):
+        track_number = i + 1
+
+        video = None
+        if want_track_number:
+            video = Youtube_Video(youtube_url, track_number)
+        else:
+            video = Youtube_Video(youtube_url)
+        
+        video_mp4 = video.to_mp4()
+
+        if want_track_number:
+            mp4_to_mp3(
+                video_mp4,
+                get_mp3_filename(video_mp4, track_number)
+            )
+        else:
+            mp4_to_mp3(
+                video_mp4,
+                get_mp3_filename(video_mp4)
+            )
+
+
+
+elif wants_playlist == 'n':
+    youtube_url = input("Enter youtube URL: ")
+    video = Youtube_Video(youtube_url)
+    video_mp4 = video.to_mp4()
+    mp4_to_mp3(
+        video_mp4,
+        get_mp3_filename(video_mp4)
+    )
 
 # ///// deprecated ////////////////////////////////////////////////
 
